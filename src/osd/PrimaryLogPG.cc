@@ -1809,7 +1809,8 @@ void PrimaryLogPG::do_request(
 
   [[maybe_unused]] auto span = tracing::osd::tracer.add_span(__func__, op->osd_parent_span);
 
-// make sure we have a new enough map
+  // make sure we have a new enough map
+  // 查看是否正在等待 osdmap 更新
   auto p = waiting_for_map.find(op->get_source());
   if (p != waiting_for_map.end()) {
     // preserve ordering
@@ -1819,6 +1820,8 @@ void PrimaryLogPG::do_request(
     op->mark_delayed("waiting_for_map not empty");
     return;
   }
+
+  // 查看是否有更新的 osdmap，如果没有需要等待
   if (!have_same_or_newer_map(op->min_epoch)) {
     dout(20) << __func__ << " min " << op->min_epoch
 	     << ", queue on waiting_for_map " << op->get_source() << dendl;
@@ -1828,6 +1831,7 @@ void PrimaryLogPG::do_request(
     return;
   }
 
+  // 判断 op 是否可以直接丢弃
   if (can_discard_request(op)) {
     return;
   }
