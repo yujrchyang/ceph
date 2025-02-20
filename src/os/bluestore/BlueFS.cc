@@ -3291,7 +3291,7 @@ int BlueFS::_flush_and_sync_log_LD(uint64_t want_seq)
   } while (available_runway < 0);
 
   ceph_assert(want_seq == 0 || want_seq <= dirty.seq_live); // illegal to request seq that was not created yet
-  uint64_t seq =_log_advance_seq(); // 底层 dirty 序列
+  uint64_t seq =_log_advance_seq(); // 递增 dirty 序列
   _consume_dirty(seq); // 为所有小于 log dirty 序列的文件创建事务并记录到 log 中
   // 将待释放的 extent 保存到 to_release 中
   vector<interval_set<uint64_t>> to_release(dirty.pending_release.size());
