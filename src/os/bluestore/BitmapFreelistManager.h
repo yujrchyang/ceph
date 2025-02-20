@@ -14,7 +14,7 @@
 #include "kv/KeyValueDB.h"
 
 class BitmapFreelistManager : public FreelistManager {
-  // 在 rocksdb 中 key 的前缀，meta 为 B，bitmap 为 b
+  // 在 rocksdb 中 key 的列族，meta 为 B，bitmap 为 b
   std::string meta_prefix, bitmap_prefix;
   // merge 操作，实际上就是按位异或
   std::shared_ptr<KeyValueDB::MergeOperator> merge_op;
