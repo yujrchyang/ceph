@@ -25,7 +25,7 @@ struct range_seg_t {
       end{end}
   {}
   // Tree is sorted by offset, greater offsets at the end of the tree.
-  // 以起始位置进行排序的的比价器
+  // 以起始位置进行排序的的比较器
   struct before_t {
     template<typename KeyLeft, typename KeyRight>
     bool operator()(const KeyLeft& lhs, const KeyRight& rhs) const {
