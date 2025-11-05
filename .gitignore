@@ -100,4 +100,6 @@ src/pybind/rgw/build/
 src/pybind/rgw/rgw.c
 src/pybind/rgw/rgw.egg-info/
 
+*.buildinfo
 compile_commands.json
+
