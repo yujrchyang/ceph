@@ -11,6 +11,7 @@ pyOpenSSL
 pytest-cov==2.7.1
 pyyaml
 requests-mock
+numpy>=1.22,<1.25.0
 scipy
 setuptools
 werkzeug
